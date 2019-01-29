@@ -443,6 +443,12 @@ def get_youshiyouxue_apks_dir():
     create_dir(tmp_dir)
     return tmp_dir
 
+def get_third_so_dir():
+    tmp_dir = '/home/youxue/opt/workspace/jenkins/workspace/test/ue6/third_so'
+    create_dir(tmp_dir)
+    exec_command('svn update ' + dir + ' --username lining --password lining')
+    return tmp_dir
+
 
 def get_bambu_dir():
     tmp_dir = gl_output_dir + '/bambu/'
@@ -594,6 +600,9 @@ def copy_apks_and_so():
     command_copy_system_lib = 'cp ' + get_youshiyouxue_apks_dir() + 'armeabi-v7a/*.so ' + system_lib_dir
     exec_command(command_copy_system_lib)
 
+    #拷贝第三方so
+    copy_third_so()
+
     # 拷贝预安装应用
     preinstall_app_dir = get_system_release_dir() + 'release/target_data/SYSTEM/preinstall'
     create_dir(preinstall_app_dir)
@@ -606,6 +615,17 @@ def copy_bambu():
     system_dir = get_system_release_dir() + 'release/target_data/SYSTEM/'
     command_copy_bambu = 'cp -fr ' + get_bambu_dir() + '* ' + system_dir
     exec_command(command_copy_bambu)
+
+def copy_third_so():
+    system_lib64_dir = get_system_release_dir() + 'release/target_data/SYSTEM/lib64'
+    command_copy_system_lib64 = 'cp ' + get_third_so_dir() + 'arm64-v8a/*.so ' + system_lib64_dir
+    exec_command(command_copy_system_lib64)
+
+    system_lib_dir = get_system_release_dir() + 'release/target_data/SYSTEM/lib'
+    command_copy_system_lib = 'cp ' + get_third_so_dir() + 'armeabi/*.so ' + system_lib_dir
+    exec_command(command_copy_system_lib)
+    command_copy_system_lib = 'cp ' + get_third_so_dir() + 'armeabi-v7a/*.so ' + system_lib_dir
+    exec_command(command_copy_system_lib)
 
 
 def build_tf_and_ota():
