@@ -446,7 +446,7 @@ def get_youshiyouxue_apks_dir():
 def get_third_so_dir():
     tmp_dir = '/home/youxue/opt/workspace/jenkins/workspace/test/ue6/third_so'
     create_dir(tmp_dir)
-    exec_command('svn update ' + dir + ' --username lining --password lining')
+    exec_command('svn update ' + tmp_dir + ' --username lining --password lining')
     return tmp_dir
 
 
