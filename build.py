@@ -444,7 +444,7 @@ def get_youshiyouxue_apks_dir():
     return tmp_dir
 
 def get_third_so_dir():
-    tmp_dir = '/home/youxue/opt/workspace/jenkins/workspace/test/ue6/third_so'
+    tmp_dir = '/home/youxue/opt/workspace/jenkins/workspace/test/ue6/third_so/'
     create_dir(tmp_dir)
     exec_command('svn update ' + tmp_dir + ' --username lining --password lining')
     return tmp_dir
@@ -656,6 +656,7 @@ if __name__ == '__main__':
     build_inc_package = False
     test_copy_inner = False
     use_bambu = False
+    test_copy_third_so = False
 
     version = ''
     for param in sys.argv:
@@ -672,6 +673,8 @@ if __name__ == '__main__':
                 build_inc_package = True
             if param == '--bambu':
                 use_bambu = True
+            if param == '--test_copy_third_so':
+                test_copy_third_so = True
             if param == '--testcopy':
                 test_copy_inner = True
             if '--version=' in param:
@@ -684,6 +687,10 @@ if __name__ == '__main__':
             for tmp_submit_log_file in dirs:
                 if os.path.exists(tmp_submit_log_file):
                     os.remove(tmp_submit_log_file)
+
+    if test_copy_third_so:
+        copy_third_so()
+        print('copy_third_so end.')
 
     project_path = sys.argv[size - 1]
     print('project_path = %s' % project_path)
