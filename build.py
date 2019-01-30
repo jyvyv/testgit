@@ -601,7 +601,7 @@ def copy_apks_and_so():
     exec_command(command_copy_system_lib)
 
     #拷贝第三方so
-    copy_third_so()
+    # copy_third_so()
 
     # 拷贝预安装应用
     preinstall_app_dir = get_system_release_dir() + 'release/target_data/SYSTEM/preinstall'
